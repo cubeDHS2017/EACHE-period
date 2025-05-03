@@ -67,7 +67,7 @@ export default function HomeScreen() {
 
   return (
     <View style={dynamicStyles.container}>
-      <Text style={dynamicStyles.heading}>Classes for {name ?? '...'}</Text>
+      <Text style={dynamicStyles.heading}>Eache class for {name ?? '...'}:</Text>
       {loading ? (
         <Text>Loading...</Text>
       ) : (
