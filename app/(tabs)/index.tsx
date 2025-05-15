@@ -35,7 +35,13 @@ export default function HomeScreen() {
               .in('id', validClassIds);
 
             if (!classError && classData) {
-              setClasses(classData);
+              // Sort classes by time_start
+              const sortedClasses = classData.sort((a, b) => {
+                const timeA = new Date(`1970-01-01T${a.time_start}Z`).getTime();
+                const timeB = new Date(`1970-01-01T${b.time_start}Z`).getTime();
+                return timeA - timeB;
+              });
+              setClasses(sortedClasses);
             }
           }
         }
@@ -68,7 +74,7 @@ export default function HomeScreen() {
       backgroundColor: '#121212', // solid dark background
       width: '100%',
       maxWidth: 350,
-      height: 120,
+      height: 140,
       justifyContent: 'center',
       shadowColor: '#00b0ff',
       shadowOffset: { width: 0, height: 0 },
