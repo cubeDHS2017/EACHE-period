@@ -3,11 +3,13 @@ import { View, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase } from '../lib/supabase';
 import { useFocusEffect } from '@react-navigation/native';
+import { useColorScheme } from 'react-native'; // Import useColorScheme
 
 export default function HomeScreen() {
   const [classes, setClasses] = useState<any[]>([]);
   const [name, setName] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const colorScheme = useColorScheme(); // Use the color scheme
 
   useFocusEffect(
     useCallback(() => {
@@ -57,7 +59,7 @@ export default function HomeScreen() {
     container: {
       flex: 1,
       padding: 20,
-      backgroundColor: '#121212',
+      backgroundColor: colorScheme === 'dark' ? '#121212' : '#ffffff',
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -65,18 +67,18 @@ export default function HomeScreen() {
       fontSize: 22,
       fontWeight: 'bold',
       marginBottom: 10,
-      color: '#00b0ff',
+      color: colorScheme === 'dark' ? '#00b0ff' : '#0000ff',
     },
     classBubble: {
       borderRadius: 16,
       padding: 16,
       marginBottom: 12,
-      backgroundColor: '#121212', // solid dark background
+      backgroundColor: colorScheme === 'dark' ? '#121212' : '#f0f0f0', // solid dark background
       width: '100%',
       maxWidth: 350,
       height: 140,
       justifyContent: 'center',
-      shadowColor: '#00b0ff',
+      shadowColor: colorScheme === 'dark' ? '#00b0ff' : '#0000ff',
       shadowOffset: { width: 0, height: 0 },
       shadowOpacity: 0.8,
       shadowRadius: 10,
@@ -86,16 +88,16 @@ export default function HomeScreen() {
       fontSize: 18,
       fontWeight: '600',
       marginBottom: 6,
-      color: '#ffffff',
+      color: colorScheme === 'dark' ? '#ffffff' : '#000000',
     },
     classDetails: {
       fontSize: 16,
-      color: '#a0a0a0',
+      color: colorScheme === 'dark' ? '#a0a0a0' : '#606060',
     },
     classNotFound: {
       fontSize: 18,
       fontWeight: 'bold',
-      color: '#00b0ff',
+      color: colorScheme === 'dark' ? '#00b0ff' : '#0000ff',
       textAlign: 'center',
       marginTop: 20,
     },
@@ -116,7 +118,7 @@ export default function HomeScreen() {
     <View style={dynamicStyles.container}>
       <Text style={dynamicStyles.heading}>EACHE class for {name ?? '...'}:</Text>
       {loading ? (
-        <Text style={{ color: '#ffffff' }}>Loading...</Text>
+        <Text style={{ color: colorScheme === 'dark' ? '#ffffff' : '#000000' }}>Loading...</Text>
       ) : (
         classes.length > 0 ? (
           classes.map((classItem, idx) => (

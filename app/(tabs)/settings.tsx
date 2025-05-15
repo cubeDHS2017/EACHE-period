@@ -54,7 +54,7 @@ export default function SettingsScreen() {
     <View style={dynamicStyles.container}>
       <Text style={dynamicStyles.heading}>Settings</Text>
       <TextInput
-        placeholder="Enter your name"
+        placeholder="Enter your first name"
         placeholderTextColor={colorScheme === 'dark' ? '#888' : '#aaa'}
         style={dynamicStyles.input}
         value={name}
