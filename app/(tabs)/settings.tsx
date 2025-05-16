@@ -1,20 +1,18 @@
+// SettingsScreen.tsx
 import { View, TextInput, Button, StyleSheet, Text, Keyboard, useColorScheme } from 'react-native';
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation to navigate
+import { useNavigation } from '@react-navigation/native';
 
 export default function SettingsScreen() {
   const [name, setName] = useState('');
   const colorScheme = useColorScheme();
-  const navigation = useNavigation(); // Get the navigation object
+  const navigation = useNavigation();
 
   const handleSave = async () => {
     if (name.trim()) {
       await AsyncStorage.setItem('username', name.trim());
-      Keyboard.dismiss(); // Dismiss keyboard after saving
-      // alert('Name saved!');
-      
-      // Navigate back to the Home screen
+      Keyboard.dismiss();
       navigation.goBack();
     }
   };
@@ -40,7 +38,7 @@ export default function SettingsScreen() {
       backgroundColor: colorScheme === 'dark' ? '#444' : '#007bff',
     },
     buttonText: {
-      color: colorScheme === 'dark' ? '#fff' : '#fff',
+      color: '#fff',
     },
     heading: {
       fontSize: 22,
@@ -54,7 +52,7 @@ export default function SettingsScreen() {
     <View style={dynamicStyles.container}>
       <Text style={dynamicStyles.heading}>Settings</Text>
       <TextInput
-        placeholder="Enter your first name"
+        placeholder="Enter your first and last name"
         placeholderTextColor={colorScheme === 'dark' ? '#888' : '#aaa'}
         style={dynamicStyles.input}
         value={name}

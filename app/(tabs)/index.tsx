@@ -1,15 +1,16 @@
+// index.tsx (HomeScreen)
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase } from '../lib/supabase';
 import { useFocusEffect } from '@react-navigation/native';
-import { useColorScheme } from 'react-native'; // Import useColorScheme
+import { useColorScheme } from 'react-native';
 
 export default function HomeScreen() {
   const [classes, setClasses] = useState<any[]>([]);
   const [name, setName] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const colorScheme = useColorScheme(); // Use the color scheme
+  const colorScheme = useColorScheme();
 
   useFocusEffect(
     useCallback(() => {
@@ -20,10 +21,13 @@ export default function HomeScreen() {
         setName(storedName);
 
         if (storedName) {
+          const [first, last] = storedName.trim().split(' ');
+
           const { data, error } = await supabase
             .from('students')
             .select('*')
-            .eq('name_first', storedName)
+            .eq('name_first', first)
+            .eq('name_last', last)
             .single();
 
           if (!error && data) {
@@ -37,7 +41,6 @@ export default function HomeScreen() {
               .in('id', validClassIds);
 
             if (!classError && classData) {
-              // Sort classes by time_start
               const sortedClasses = classData.sort((a, b) => {
                 const timeA = new Date(`1970-01-01T${a.time_start}Z`).getTime();
                 const timeB = new Date(`1970-01-01T${b.time_start}Z`).getTime();
@@ -73,7 +76,7 @@ export default function HomeScreen() {
       borderRadius: 16,
       padding: 16,
       marginBottom: 12,
-      backgroundColor: colorScheme === 'dark' ? '#121212' : '#f0f0f0', // solid dark background
+      backgroundColor: colorScheme === 'dark' ? '#121212' : '#f0f0f0',
       width: '100%',
       maxWidth: 350,
       height: 140,
