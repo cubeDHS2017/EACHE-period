@@ -49,18 +49,34 @@ export default function SettingsScreen() {
   });
 
   return (
-    <View style={dynamicStyles.container}>
+    <View style={[dynamicStyles.container, { paddingTop: 60 }]}>
       <Text style={dynamicStyles.heading}>Settings</Text>
-      <TextInput
-        placeholder="Enter your first and last name"
-        placeholderTextColor={colorScheme === 'dark' ? '#888' : '#aaa'}
-        style={dynamicStyles.input}
-        value={name}
-        onChangeText={setName}
-        onSubmitEditing={handleSave}
-        returnKeyType="done"
-      />
-      <Button title="Save" onPress={handleSave} color={dynamicStyles.button.backgroundColor} />
+      <Text style={{
+        color: colorScheme === 'dark' ? '#ccc' : '#555',
+        marginBottom: 12,
+        fontSize: 14,
+      }}>
+        Type your first and last name capitalizing the first letter. Then hit "Save" or Enter on your keyboard. Your search will be saved for next time you open the app.
+      </Text>
+  
+      <View style={{ width: '100%', maxWidth: 400 }}>
+        <TextInput
+          placeholder="Enter your first and last name"
+          placeholderTextColor={colorScheme === 'dark' ? '#888' : '#aaa'}
+          style={dynamicStyles.input}
+          value={name}
+          onChangeText={setName}
+          onSubmitEditing={handleSave}
+          returnKeyType="done"
+        />
+        <View style={{ marginTop: 8 }}>
+          <Button
+            title="Save"
+            onPress={handleSave}
+            color={dynamicStyles.button.backgroundColor}
+          />
+        </View>
+      </View>
     </View>
   );
 }

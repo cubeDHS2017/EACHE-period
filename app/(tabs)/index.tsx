@@ -16,6 +16,7 @@ export default function HomeScreen() {
     useCallback(() => {
       const load = async () => {
         setLoading(true);
+        setClasses([]);  // Clear the previous classes list
 
         const storedName = await AsyncStorage.getItem('username');
         setName(storedName);
@@ -48,7 +49,13 @@ export default function HomeScreen() {
               });
               setClasses(sortedClasses);
             }
+          } else {
+            // No student found, so set an empty list
+            setClasses([]);
           }
+        } else {
+          // If no stored name is found, set classes to empty as well
+          setClasses([]);
         }
 
         setLoading(false);
@@ -119,7 +126,7 @@ export default function HomeScreen() {
 
   return (
     <View style={dynamicStyles.container}>
-      <Text style={dynamicStyles.heading}>EACHE class for {name ?? '...'}:</Text>
+      <Text style={dynamicStyles.heading}>EACHE period for {name ?? '...'}:</Text>
       {loading ? (
         <Text style={{ color: colorScheme === 'dark' ? '#ffffff' : '#000000' }}>Loading...</Text>
       ) : (
